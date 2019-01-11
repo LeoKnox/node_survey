@@ -1,17 +1,15 @@
 module.exports = function(app) {
+    const controller = require('./controller');
 
     app.get('/', function(req, res) {
-        res.render("index");
+        controller.index(req, res);
     })
 
     app.post('/form', function(req, res) {
-        console.log("data: \n\n", req.body);
-        req.session.info = req.body;
-        console.log(req.session.info);
-        res.redirect("/display");
+        controller.form(req, res);
     })
 
     app.get('/display', function(req, res) {
-        res.render('display', {r: req.session.info});
+        controller.display(req, res);
     })
 }
