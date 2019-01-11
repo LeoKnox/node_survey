@@ -14,22 +14,11 @@ app.use(session({
     cookie: { maxAge: 6000 }
 }))
 
+require('./route')(app); // or var routes = require('./route'); routes(app);
+
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
-app.get('/', function(req, res) {
-    res.render("index");
-})
 
-app.post('/form', function(req, res) {
-    console.log("data: \n\n", req.body);
-    req.session.info = req.body;
-    console.log(req.session.info);
-    res.redirect("/display");
-})
-
-app.get('/display', function(req, res) {
-    res.render('display', {r: req.session.info});
-})
 
 app.listen(8000, function() {
     console.log("listening on port 8000");
